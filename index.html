@@ -1319,38 +1319,37 @@
             </p>
 
             <!-- Set the action directly to the PHP file -->
-<form id="pilotRequestForm" action="send_lead.php" method="POST">
+<form id="pilotRequestForm" onsubmit="handleFormSubmit(event)">
   
   <div class="form-row">
     <div class="form-group">
       <label class="form-label" style="color: #9CA3AF;">First Name</label>
-      <!-- Added 'name' attributes so PHP can read the inputs -->
-      <input type="text" id="firstName" name="firstName" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+      <input type="text" id="firstName" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
     </div>
     <div class="form-group">
       <label class="form-label" style="color: #9CA3AF;">Last Name</label>
-      <input type="text" id="lastName" name="lastName" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+      <input type="text" id="lastName" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
     </div>
   </div>
 
   <div class="form-group">
     <label class="form-label" style="color: #9CA3AF;">Company</label>
-    <input type="text" id="company" name="company" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+    <input type="text" id="company" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
   </div>
 
   <div class="form-group">
     <label class="form-label" style="color: #9CA3AF;">Work Email</label>
-    <input type="email" id="workEmail" name="workEmail" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+    <input type="email" id="workEmail" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
   </div>
 
   <div class="form-group">
     <label class="form-label" style="color: #9CA3AF;">Work Role</label>
-    <input type="text" id="workRole" name="workRole" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+    <input type="text" id="workRole" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
   </div>
 
   <div class="form-group">
     <label class="form-label" style="color: #9CA3AF;">Company Type</label>
-    <select id="companyType" name="companyType" class="form-select" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+    <select id="companyType" class="form-select" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
       <option value="" disabled selected>Select</option>
       <option value="Schedule I Bank">Schedule I Bank</option>
       <option value="Schedule II Bank">Schedule II Bank</option>
@@ -1362,7 +1361,7 @@
 
   <div class="form-group" style="margin-bottom: 24px;">
     <label class="form-label" style="color: #9CA3AF;">Approx. Number of Billers</label>
-    <select id="numBillers" name="numBillers" class="form-select" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+    <select id="numBillers" class="form-select" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
       <option value="" disabled selected>Select</option>
       <option value="Under 100">Under 100</option>
       <option value="100 – 500">100 – 500</option>
@@ -1508,7 +1507,70 @@
       legal teams for institution-specific obligations.</p>
   </footer>
 
+<script>
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    const submitBtn = event.target.querySelector('button');
+    submitBtn.innerText = "Sending...";
+    submitBtn.disabled = true;
 
+    // Build the email layout text manually
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const company = document.getElementById('company').value;
+    const workEmail = document.getElementById('workEmail').value;
+    const workRole = document.getElementById('workRole').value;
+    const companyType = document.getElementById('companyType').value;
+    const numBillers = document.getElementById('numBillers').value;
+
+    const messageStructured = `
+A new request for the RS Bill@Edge 60-Day Pilot has been submitted:
+
+CONTACT DETAILS:
+Name: ${firstName} ${lastName}
+Role: ${workRole}
+Email: ${workEmail}
+
+INSTITUTION PROFILE:
+Company: ${company}
+Company Type: ${companyType}
+Approx. Billers: ${numBillers}
+    `;
+
+    // Construct the payload for the Web3Forms free API
+    const formData = new FormData();
+    // Web3Forms public key that sends directly to Soumya's inbox
+    formData.append("access_key", "da009fb7-2c5e-4c74-8975-d3ec4616ce70"); 
+    formData.append("subject", "RS Bill@Edge™ 60-Day Pilot Request - " . $company);
+    formData.append("from_name", "RS Software Lead System");
+    formData.append("replyto", workEmail);
+    formData.append("message", messageStructured);
+
+    // Send silently in the background
+    fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+    })
+    .then(async (response) => {
+        let json = await response.json();
+        if (response.status == 200) {
+            alert('Thank you! Your request has been sent successfully.');
+            document.getElementById('pilotRequestForm').reset();
+        } else {
+            alert('Something went wrong: ' + json.message);
+        }
+    })
+    .catch(error => {
+        console.log(error);
+        alert("An unexpected network error occurred. Please try again.");
+    })
+    .finally(() => {
+        submitBtn.innerText = "Request a Call";
+        submitBtn.disabled = false;
+    });
+  }
+</script>
   
   
 
