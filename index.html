@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RS Bill@Edge™ — 60-Day Pilot: Biller Onboarding & Complaint Management for Canadian FIs</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background: #ffffff;
+      color: #1a2a3a;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #003366;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .nav-logo {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .nav-logo span {
+      color: #4DB6E8;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #aac8e0;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-cta {
+      background: #E63946;
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 14px !important;
+    }
+
+    .hero {
+      background: linear-gradient(160deg, #001e40 0%, #003366 50%, #005a99 100%);
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 80px 40px 60px;
+    }
+
+    .hero-bg-circle1 {
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(77, 182, 232, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(230, 57, 70, 0.15);
+      border: 1px solid rgba(230, 57, 70, 0.4);
+      border-radius: 4px;
+      padding: 6px 14px;
+      margin-bottom: 22px;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #E63946;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1 }
+      50% { opacity: 0.4 }
+    }
+
+    .hero-badge-text {
+      color: #f0c0c3;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      color: #ffffff;
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero h1 em {
+      color: #4DB6E8;
+      font-style: normal;
+    }
+
+    .hero-sub {
+      color: #b0cce0;
+      font-size: 17px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .hero-sub strong {
+      color: #fff;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: #E63946;
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: #c0303b;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(77, 182, 232, 0.5);
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: border-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: #4DB6E8;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(77, 182, 232, 0.2);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .hero-card-title {
+      color: #4DB6E8;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hc-stat {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .hc-stat:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .hc-num {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 800;
+      min-width: 80px;
+    }
+
+    .hc-label {
+      color: #9ab8cc;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .section {
+      padding: 80px 40px;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      color: #4DB6E8;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 34px;
+      font-weight: 800;
+      color: #003366;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 17px;
+      color: #4a6280;
+      line-height: 1.65;
+      max-width: 680px;
+      margin-bottom: 48px;
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .pain-card {
+      background: #fff;
+      border: 1px solid #dde8f4;
+      border-radius: 10px;
+      padding: 24px;
+      border-top: 4px solid #E63946;
+    }
+
+    .pain-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+    }
+
+    .pain-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #003366;
+      margin-bottom: 8px;
+    }
+
+    .pain-card p {
+      font-size: 13px;
+      color: #4a6280;
+      line-height: 1.6;
+    }
+
+    .reg-banner {
+      background: #003366;
+      border-radius: 10px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .reg-block {
+      padding: 0 28px 0 0;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .reg-block:last-child {
+      border-right: none;
+      padding: 0 0 0 28px;
+    }
+
+    .reg-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(77, 182, 232, 0.15);
+      color: #4DB6E8;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+
+    .coming-chip {
+      background: rgba(255, 200, 0, 0.15);
+      color: #f0c850;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-left: 4px;
+      font-weight: 700;
+    }
+
+    .reg-block h3 {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .reg-block ul {
+      color: #9ab8cc;
+      font-size: 13px;
+      line-height: 1.8;
+      padding-left: 18px;
+    }
+
+    .reg-block li {
+      margin-bottom: 2px;
+    }
+
+    .solution-bg {
+      background: #f0f6fc;
+    }
+
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .sol-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 28px;
+      border: 1px solid #dde8f4;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .sol-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: #003366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sol-icon svg {
+      width: 26px;
+      height: 26px;
+      fill: none;
+      stroke: #4DB6E8;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .sol-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #003366;
+    }
+
+    .sol-card p {
+      font-size: 14px;
+      color: #4a6280;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .sol-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .sol-tag {
+      background: #e6f4fb;
+      color: #0a5a8a;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    .journey-bg {
+      background: #003366;
+    }
+
+    .journey-bg .section-eyebrow {
+      color: #4DB6E8;
+    }
+
+    .journey-bg .section-title {
+      color: #fff;
+    }
+
+    .journey-bg .section-subtitle {
+      color: #9ab8cc;
+    }
+
+    .journey-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      margin-top: 48px;
+      position: relative;
+    }
+
+    .journey-steps::before {
+      content: '';
+      position: absolute;
+      top: 27px;
+      left: calc(10% + 8px);
+      right: calc(10% + 8px);
+      height: 2px;
+      background: rgba(77, 182, 232, 0.2);
+      z-index: 0;
+    }
+
+    .journey-step {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      padding: 0 8px;
+    }
+
+    .step-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(77, 182, 232, 0.1);
+      border: 2px solid rgba(77, 182, 232, 0.3);
+      color: #4DB6E8;
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .journey-step h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .journey-step p {
+      font-size: 12px;
+      color: #7a9ab0;
+      line-height: 1.5;
+    }
+
+    .poc-bg {
+      background: #f0f6fc;
+    }
+
+    .poc-card-full {
+      background: #fff;
+      border: 1px solid #dde8f4;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .poc-card-header {
+      background: #003366;
+      padding: 28px 32px;
+    }
+
+    .poc-card-header h3 {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .poc-card-header p {
+      color: #9ab8cc;
+      font-size: 14px;
+    }
+
+    .poc-meta-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .poc-chip {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(77, 182, 232, 0.2);
+      border-radius: 20px;
+      padding: 5px 14px;
+      color: #b0cce0;
+      font-size: 13px;
+    }
+
+    .poc-chip strong {
+      color: #fff;
+    }
+
+    .poc-body {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 0;
+    }
+
+    .poc-steps-col {
+      padding: 32px;
+      border-right: 1px solid #eef2f7;
+    }
+
+    .poc-steps-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #667;
+      margin-bottom: 20px;
+    }
+
+    .poc-step-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 22px;
+      align-items: flex-start;
+    }
+
+    .poc-step-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .psn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #003366;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .poc-step-item h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #003366;
+      margin-bottom: 4px;
+    }
+
+    .poc-step-item p {
+      font-size: 13px;
+      color: #4a6280;
+      line-height: 1.55;
+    }
+
+    .poc-form-col {
+      padding: 32px;
+      background: #f7fafd;
+    }
+
+    .poc-form-col h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #003366;
+      margin-bottom: 6px;
+    }
+
+    .poc-form-col p {
+      font-size: 13px;
+      color: #667;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-label {
+      display: block;
+      color: #667;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: #fff;
+      border: 1px solid #c8d8e8;
+      border-radius: 5px;
+      padding: 9px 12px;
+      color: #1a2a3a;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+
+    .form-input:focus {
+      border-color: #4DB6E8;
+    }
+
+    .form-select {
+      width: 100%;
+      background: #fff;
+      border: 1px solid #c8d8e8;
+      border-radius: 5px;
+      padding: 9px 12px;
+      color: #1a2a3a;
+      font-size: 14px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .form-submit {
+      width: 100%;
+      background: #E63946;
+      color: #fff;
+      border: none;
+      padding: 13px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 6px;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+
+    .form-submit:hover {
+      background: #c0303b;
+    }
+
+    .form-note {
+      color: #999;
+      font-size: 11px;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .cred-bg {
+      background: #fff;
+    }
+
+    .cred-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .cred-stat {
+      background: #f0f6fc;
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .cs-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: #003366;
+    }
+
+    .cs-label {
+      font-size: 13px;
+      color: #667;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* Highlighted Canada Callout Box Style */
+    .canada-note {
+      background: #fff5f5;
+      border-radius: 10px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      border: 1px solid #fbd5d5;
+      border-left: 6px solid #E63946;
+      box-shadow: 0 4px 15px rgba(230, 57, 70, 0.05);
+    }
+
+    .cn-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(230, 57, 70, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 28px;
+    }
+
+    .cn-text h3 {
+      color: #003366;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .cn-text p {
+      color: #4a6280;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    footer {
+      background: #001228;
+      padding: 40px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .footer-logo span {
+      color: #4DB6E8;
+    }
+
+    .footer-logo small {
+      display: block;
+      color: #7a8a9a;
+      font-size: 12px;
+      font-weight: 400;
+      margin-top: 4px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: #7a8a9a;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #4DB6E8;
+    }
+
+    .footer-copy {
+      color: #4a5a6a;
+      font-size: 12px;
+      margin-top: 20px;
+      text-align: center;
+      max-width: 1100px;
+      margin: 20px auto 0;
+    }
+
+    @media (max-width: 992px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .poc-body {
+        grid-template-columns: 1fr;
+      }
+      .poc-steps-col {
+        border-right: none;
+        border-bottom: 1px solid #eef2f7;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 20px;
+        height: auto;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+      .nav-links {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero {
+        padding: 40px 20px;
+      }
+      .hero h1 {
+        font-size: 32px;
+      }
+      .hero-sub {
+        font-size: 15px;
+      }
+      .section {
+        padding: 50px 20px;
+      }
+      .section-title {
+        font-size: 26px;
+      }
+      .pain-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .reg-banner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 24px;
+      }
+      .reg-block {
+        padding: 0;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 20px;
+      }
+      .reg-block:last-child {
+        padding-left: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .solution-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .journey-steps {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .journey-steps::before {
+        display: none;
+      }
+      .journey-step {
+        text-align: left;
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 0;
+      }
+      .step-circle {
+        margin: 0;
+        flex-shrink: 0;
+      }
+      .journey-bg div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+      .cred-stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .cred-bg div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+      .canada-note {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 20px !important;
+      }
+      .footer-inner {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      .footer-links {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+      }
+    }
+  </style>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function() {
+      // Replace "YOUR_PUBLIC_KEY" with your actual EmailJS Public Key
+      emailjs.init("YOUR_PUBLIC_KEY");
+   })();
+</script>
+</head>
+
+<body>
+
+  <nav>
+    <div><img src="./images/logo.png" alt="logo" style="max-height: 40px; width: auto;"></div>
+    <div class="nav-links">
+      <a href="#compliance">H6 &amp; FCAC</a>
+      <a href="#solution">The Platform</a>
+      <a href="#poc-journey">The POC</a>
+      <a href="#credibility">Why RS</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-circle1"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="nav-logo">RS Bill<span>@Edge</span>™</div>
+        <br>
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <span class="hero-badge-text">Payments Canada H6 Effective December 2026 — Prepare Now</span>
+        </div>
+        <h1>Biller Onboarding &amp;<br>Complaint Management<br>Built for <em>H6 &amp; FCAC</em></h1>
+        <p class="hero-sub">
+          Payments Canada Guideline H6 takes effect <strong>December 2026</strong>. Combined with FCAC's complaint
+          handling framework, Canadian banks and credit unions need structured, auditable processes across the full
+          biller lifecycle — from onboarding through complaint resolution. <strong>RS Bill@Edge™</strong> addresses both
+          in a single platform.
+        </p>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-title">Why Act Now</div>
+        <div class="hc-stat">
+          <div class="hc-num">Dec 2026</div>
+          <div class="hc-label">Payments Canada H6 effective date — institutions need compliant processes in place
+            before examination</div>
+        </div>
+        <div class="hc-stat">
+          <div class="hc-num">60 days</div>
+          <div class="hc-label">Structured pilot covering the full biller and complaint lifecycle, live in your
+            environment with your data</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLIANCE -->
+  <section class="section" id="compliance">
+    <div class="section-inner">
+      <div class="section-eyebrow">The Regulatory Backdrop</div>
+      <h2 class="section-title">H6 &amp; FCAC: What They Require, and Where Most Institutions Fall Short</h2>
+      <p class="section-subtitle">The requirements aren't ambiguous — but most institutions are still running biller
+        onboarding on spreadsheets and handling complaints in disconnected systems. That gap is the compliance risk.</p>
+
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div class="pain-icon">📋</div>
+          <h3>Biller Onboarding Has No Audit Trail</h3>
+          <p>H6 requires documented third-party risk management for every biller. Email threads and spreadsheets aren't
+            auditable, aren't version-controlled, and won't satisfy an examiner.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">⏱</div>
+          <h3>SLAs Are Absent Across the Board</h3>
+          <p>From biller onboarding to complaint resolution, most institutions have no systematic SLA framework in
+            place. Onboarding timelines drift without accountability. Complaint resolution depends on individual effort
+            rather than governed process. Both expose the institution to H6 and FCAC scrutiny.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">🗃</div>
+          <h3>Biller Data Is Fragmented and Inaccurate</h3>
+          <p>Duplicate records, stale data, and siloed biller information create downstream problems — payment errors,
+            customer complaints, and an inability to surface a clean registry to customers or regulators.</p>
+        </div>
+      </div>
+
+      <div class="reg-banner">
+        <div class="reg-block">
+          <div class="reg-tag">Payments Canada H6 <span class="coming-chip">Effective Dec 2026</span></div>
+          <h3>Third-Party Risk &amp; Biller Governance</h3>
+          <ul>
+            <li>Documented due diligence for each biller relationship</li>
+            <li>Risk-tiering and SLA-governed onboarding workflow with documented approvals</li>
+            <li>Complete, auditable record of all onboarding decisions</li>
+            <li>Ongoing biller monitoring and re-verification controls</li>
+            <li>Board-level oversight with traceable evidence</li>
+          </ul>
+        </div>
+        <div class="reg-block">
+          <div class="reg-tag">FCAC · Complaint Handling</div>
+          <h3>Complaint Intake, SLAs &amp; Resolution</h3>
+          <ul>
+            <li>Standardised complaint intake across all channels</li>
+            <li>Defined SLA per complaint type with tracking</li>
+            <li>Documented escalation paths and notifications</li>
+            <li>Root-cause analysis and pathway to optional arbitration</li>
+            <li>Operational dashboards and examiner-ready reporting</li>
+            <li>Consistent process traceable from intake to closure</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="section solution-bg" id="solution">
+    <div class="section-inner">
+      <div class="section-eyebrow">The RS Bill@Edge™ Platform</div>
+      <h2 class="section-title">One Platform. The Full Biller<br>and Complaint Lifecycle.</h2>
+      <p class="section-subtitle">RS Bill@Edge™ addresses H6 and FCAC obligations in a single, connected platform — from
+        biller intake through complaint closure, with SLA governance built into every stage.</p>
+
+      <div class="solution-grid">
+        <div class="sol-card">
+          <div class="sol-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4" />
+              <rect x="3" y="3" width="18" height="18" rx="3" />
+            </svg>
+          </div>
+          <h3>Structured Biller Onboarding</h3>
+          <p>Digital intake, document collection, automated due diligence checks, and risk-tiering — with configurable
+            approval chains and SLA checkpoints at every stage. Every onboarding action is timestamped and auditable
+            from day one.</p>
+          <div class="sol-tags">
+            <span class="sol-tag">H6 Aligned</span>
+            <span class="sol-tag">Risk Tiering</span>
+            <span class="sol-tag">SLA at Every Stage</span>
+            <span class="sol-tag">Full Audit Trail</span>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-icon">
+            <svg viewBox="0 0 24 24">
+              <ellipse cx="12" cy="8" rx="9" ry="4" />
+              <path d="M3 8v8c0 2.21 4.03 4 9 4s9-1.79 9-4V8" />
+            </svg>
+          </div>
+          <h3>Clean, Governed Biller Registry</h3>
+          <p>Your existing biller data cleansed, deduplicated, and structured into a single governed repository. One
+            authoritative record per biller — accurate, searchable, and ready for operational and compliance use.</p>
+          <div class="sol-tags">
+            <span class="sol-tag">Data Cleansing</span>
+            <span class="sol-tag">Deduplication</span>
+            <span class="sol-tag">Single Source of Truth</span>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-icon">
+            <svg viewBox="0 0 24 24">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8M12 17v4" />
+            </svg>
+          </div>
+          <h3>Customer-Facing Biller Presentment</h3>
+          <p>The verified biller registry surfaced through your online and mobile banking channels. Accurate payee data
+            means fewer payment errors, fewer misdirected payments, and fewer resulting complaints.</p>
+          <div class="sol-tags">
+            <span class="sol-tag">Digital Channel Ready</span>
+            <span class="sol-tag">Verified Biller Data</span>
+            <span class="sol-tag">Reduces Payment Errors</span>
+          </div>
+        </div>
+
+        <div class="sol-card">
+          <div class="sol-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v5l3 3" />
+            </svg>
+          </div>
+          <h3>FCAC-Aligned Complaint Lifecycle</h3>
+          <p>A customer raises a complaint against a biller — from that point, RS Bill@Edge™ manages a structured,
+            multi-party resolution workflow. The biller is notified and can respond directly; if they need more
+            information, they request it through the platform. The bank can weigh in with transaction records or context
+            at any stage. Every iteration is SLA-governed so the process never stalls. Unresolved complaints follow a
+            structured pathway to optional arbitration, and every exchange is logged for a complete, auditable record
+            from first contact to final outcome.</p>
+          <div class="sol-tags">
+            <span class="sol-tag">FCAC Aligned</span>
+            <span class="sol-tag">SLA Governance</span>
+            <span class="sol-tag">Root-Cause Analysis</span>
+            <span class="sol-tag">Optional Arbitration</span>
+            <span class="sol-tag">Compliance Dashboards</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POC JOURNEY -->
+  <section class="section journey-bg" id="poc-journey">
+    <div class="section-inner">
+      <div class="section-eyebrow">What the 60-Day Pilot Covers</div>
+      <h2 class="section-title">One Pilot. The Complete Journey.<br>Live in Your Environment.</h2>
+      <p class="section-subtitle">The 60-day pilot goes well beyond a feature demonstration — it's a fully operational
+        deployment of the end-to-end biller and complaint lifecycle, running on your data with your institution's
+        compliance and workflow requirements built in.</p>
+
+      <div class="journey-steps">
+        <div class="journey-step">
+          <div class="step-circle">1</div>
+          <div>
+            <h4>Biller Onboarding</h4>
+            <p>Digital intake, due diligence, risk-tiering &amp; approval workflow on your live biller data</p>
+          </div>
+        </div>
+        <div class="journey-step">
+          <div class="step-circle">2</div>
+          <div>
+            <h4>SLA Compliance Framework</h4>
+            <p>SLAs applied to every stage of the onboarding lifecycle — tracked &amp; escalated</p>
+          </div>
+        </div>
+        <div class="journey-step">
+          <div class="step-circle">3</div>
+          <div>
+            <h4>Clean Biller Registry</h4>
+            <p>Your biller data migrated, cleaned, deduplicated &amp; structured into a governed registry</p>
+          </div>
+        </div>
+        <div class="journey-step">
+          <div class="step-circle">4</div>
+          <div>
+            <h4>Customer Presentment</h4>
+            <p>Verified biller registry surfaced through your digital banking channels</p>
+          </div>
+        </div>
+        <div class="journey-step">
+          <div class="step-circle">5</div>
+          <div>
+            <h4>Complaint Lifecycle</h4>
+            <p>Complaint management with built-in SLAs, root-cause analysis, optional arbitration pathway &amp; compliance dashboards</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+        <div style="background: rgba(77,182,232,0.08); border: 1px solid rgba(77,182,232,0.2); border-radius: 10px; padding: 20px;">
+          <div style="color: #4DB6E8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">
+            Days 1–20 · Foundation</div>
+          <div style="color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 6px;">Setup &amp; Data Migration</div>
+          <div style="color: #7a9ab0; font-size: 13px; line-height: 1.6;">Platform configuration, biller data migration
+            and cleansing, compliance workflow mapping, SLA framework definition.</div>
+        </div>
+        <div style="background: rgba(77,182,232,0.08); border: 1px solid rgba(77,182,232,0.2); border-radius: 10px; padding: 20px;">
+          <div style="color: #4DB6E8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">
+            Days 21–45 · Operation</div>
+          <div style="color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 6px;">Live Running &amp; Validation</div>
+          <div style="color: #7a9ab0; font-size: 13px; line-height: 1.6;">Biller onboarding and complaint workflows
+            running live, channel integration for biller presentment, SLA monitoring and tuning, user acceptance testing.</div>
+        </div>
+        <div style="background: rgba(77,182,232,0.08); border: 1px solid rgba(77,182,232,0.2); border-radius: 10px; padding: 20px;">
+          <div style="color: #4DB6E8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">
+            Days 46–60 · Readout</div>
+          <div style="color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 6px;">Assessment &amp; Roadmap</div>
+          <div style="color: #7a9ab0; font-size: 13px; line-height: 1.6;">Compliance gap analysis against H6 and FCAC,
+            executive readout, and production deployment roadmap.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POC REQUEST -->
+  <!-- POC REQUEST WITH FORM -->
+  <section class="section poc-bg" id="poc">
+    <div class="section-inner">
+      <div class="section-eyebrow">Free 60-Day Pilot · Limited Availability</div>
+      <h2 class="section-title" style="margin-bottom:8px;">Live in Your Environment.<br>Zero Cost. Zero Commitment.</h2>
+      <p class="section-subtitle">A structured 60-day engagement running on your data and your institution's compliance
+        requirements — from biller onboarding through complaint resolution, fully operational before the engagement closes.</p>
+
+      <div class="poc-card-full">
+        <div class="poc-card-header">
+          <h3>RS Bill@Edge™ 60-Day Pilot — Full Lifecycle</h3>
+          <p>A fully operational deployment covering all five stages of the biller and complaint lifecycle, running on
+            your data with your institution's compliance requirements.</p>
+          <div class="poc-meta-row">
+            <div class="poc-chip">⏱ <strong>60-day</strong> structured engagement</div>
+            <div class="poc-chip">💰 <strong>No cost,</strong> no commitment</div>
+            <div class="poc-chip">🔧 <strong>Your data,</strong> your workflows</div>
+            <div class="poc-chip">📋 <strong>Compliance gap</strong> analysis included</div>
+          </div>
+        </div>
+
+        <div class="poc-body">
+          <!-- Left Column: What's Included -->
+          <div class="poc-steps-col">
+            <div class="poc-steps-title">What's Included in the POC</div>
+
+            <div class="poc-step-item">
+              <div class="psn">1</div>
+              <div>
+                <h4>Biller Onboarding Workflow</h4>
+                <p>Digital biller intake and document collection, automated due diligence checks, risk-tiering, and
+                  multi-stage approval workflow — live on your actual biller population, configured to your
+                  institution's onboarding requirements and governance standards.</p>
+              </div>
+            </div>
+
+            <div class="poc-step-item">
+              <div class="psn">2</div>
+              <div>
+                <h4>SLA Compliance Framework Applied to Onboarding</h4>
+                <p>Every onboarding stage governed by defined service levels — tracked in real time, with automatic
+                  escalation when SLAs are at risk and a complete record of adherence at every step. SLA configuration
+                  is tailored to your institution's internal standards and H6 obligations.</p>
+              </div>
+            </div>
+
+            <div class="poc-step-item">
+              <div class="psn">3</div>
+              <div>
+                <h4>Cleaned &amp; Governed Biller Registry</h4>
+                <p>Your existing biller data migrated, cleaned, deduplicated, and structured into the biller registry —
+                  a single authoritative record for every biller. Data quality rules and governance controls are
+                  configured and validated during the pilot, leaving you with a registry fit for both operational and
+                  compliance use on day 61.</p>
+              </div>
+            </div>
+
+            <div class="poc-step-item">
+              <div class="psn">4</div>
+              <div>
+                <h4>Customer-Facing Biller Presentment</h4>
+                <p>The verified biller registry surfaced through a customer-facing interface integrated with your
+                  digital banking channels — demonstrating the end-state where customers see accurate, clean payee data
+                  directly in their online and mobile banking experience.</p>
+              </div>
+            </div>
+
+            <div class="poc-step-item">
+              <div class="psn">5</div>
+              <div>
+                <h4>Complaint Lifecycle with Built-In SLAs</h4>
+                <p>End-to-end complaint management — intake, SLA-driven assignment, escalation, root-cause analysis,
+                  resolution, and closure — aligned to FCAC requirements with your complaint types and timelines.
+                  Unresolved complaints follow a structured pathway to optional arbitration. Operational dashboards and
+                  examiner-ready reports are configured and validated during the pilot.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Form (Dark/Black Styled Section) -->
+          <div class="poc-form-col" style="background: #111827; color: #ffffff; padding: 32px;">
+            <h3 style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 6px;">Request Your Free 60-Day Pilot</h3>
+            <p style="color: #9CA3AF; font-size: 13px; margin-bottom: 24px; line-height: 1.5;">
+              We'll be in touch within one business day to scope the engagement and confirm your pilot slot.
+            </p>
+
+            <!-- Set the action directly to the PHP file -->
+<form id="pilotRequestForm" action="send_lead.php" method="POST">
+  
+  <div class="form-row">
+    <div class="form-group">
+      <label class="form-label" style="color: #9CA3AF;">First Name</label>
+      <!-- Added 'name' attributes so PHP can read the inputs -->
+      <input type="text" id="firstName" name="firstName" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label" style="color: #9CA3AF;">Last Name</label>
+      <input type="text" id="lastName" name="lastName" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" style="color: #9CA3AF;">Company</label>
+    <input type="text" id="company" name="company" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" style="color: #9CA3AF;">Work Email</label>
+    <input type="email" id="workEmail" name="workEmail" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" style="color: #9CA3AF;">Work Role</label>
+    <input type="text" id="workRole" name="workRole" class="form-input" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" style="color: #9CA3AF;">Company Type</label>
+    <select id="companyType" name="companyType" class="form-select" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+      <option value="" disabled selected>Select</option>
+      <option value="Schedule I Bank">Schedule I Bank</option>
+      <option value="Schedule II Bank">Schedule II Bank</option>
+      <option value="Credit Union">Credit Union</option>
+      <option value="Caisse populaire">Caisse populaire</option>
+      <option value="Other FI">Other FI</option>
+    </select>
+  </div>
+
+  <div class="form-group" style="margin-bottom: 24px;">
+    <label class="form-label" style="color: #9CA3AF;">Approx. Number of Billers</label>
+    <select id="numBillers" name="numBillers" class="form-select" style="background: #1F2937; border: 1px solid #374151; color: #fff;" required>
+      <option value="" disabled selected>Select</option>
+      <option value="Under 100">Under 100</option>
+      <option value="100 – 500">100 – 500</option>
+      <option value="500 – 2,000">500 – 2,000</option>
+      <option value="2,000+">2,000+</option>
+    </select>
+  </div>
+
+  <button type="submit" class="form-submit" style="background: #E63946; color: #ffffff; width: 100%; padding: 14px; border: none; border-radius: 6px; font-weight: 700; font-size: 15px; cursor: pointer;">
+    Request a Call
+  </button>
+</form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  <!-- CREDIBILITY -->
+  <section class="section cred-bg" id="credibility">
+    <div class="section-inner">
+      <div class="section-eyebrow">Why RS Software</div>
+      <h2 class="section-title">We Built the Infrastructure<br>That Powers Global Payments</h2>
+      <p class="section-subtitle">RS Software isn't entering financial services — we built the systems that process a
+        significant share of the world's digital payment volume. That includes BBPS, India's national bill payments
+        network, where we don't just own the infrastructure: we work directly with multiple banks managing their
+        end-to-end bill payment workflows — biller onboarding, registry management, and transaction processing — both
+        within BBPS and across their broader operations. RS Bill@Edge™ is built on that depth.</p>
+
+      <div class="cred-stats">
+        <div class="cred-stat">
+          <div class="cs-num">250B+</div>
+          <div class="cs-label">Transactions annually processed on RS-built payment infrastructure worldwide</div>
+        </div>
+        <div class="cred-stat">
+          <div class="cs-num">~50%</div>
+          <div class="cs-label">Estimated share of global digital payments volume running on RS-built systems</div>
+        </div>
+        <div class="cred-stat">
+          <div class="cs-num">1,200+</div>
+          <div class="cs-label">Banks currently live on RS Software platforms across payment networks globally</div>
+        </div>
+        <div class="cred-stat">
+          <div class="cs-num">25,000</div>
+          <div class="cs-label">Transactions per second — proven at scale in mission-critical production environments</div>
+        </div>
+        <div class="cred-stat">
+          <div class="cs-num">99.999%</div>
+          <div class="cs-label">Availability SLA across production deployments</div>
+        </div>
+        <div class="cred-stat">
+          <div class="cs-num">RTR · UPI · BBPS</div>
+          <div class="cs-label">Co-architect of Canada's RTR, builder of India's UPI and BBPS — three of the world's
+            most significant payment networks</div>
+        </div>
+      </div>
+
+      <div style="background: #f0f6fc; border-radius: 10px; padding: 28px 32px; margin-bottom: 24px;">
+        <div style="color: #4DB6E8; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px;">
+          RS Bill@Edge™ — A Full-Suite Bill Payments Platform</div>
+        <p style="font-size: 14px; color: #4a6280; line-height: 1.65; margin-bottom: 24px;">The 60-day pilot focuses on
+          biller onboarding and complaint management — but RS Bill@Edge™ is a complete bill payments platform. Canadian
+          institutions can activate additional modules on the same platform as their operations mature, without
+          integration overhead or platform change.</p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+          <div style="background: #fff; border: 1px solid #dde8f4; border-radius: 8px; padding: 16px;">
+            <div style="font-size: 13px; font-weight: 700; color: #003366; margin-bottom: 5px;">Mandates Management</div>
+            <div style="font-size: 12px; color: #4a6280; line-height: 1.55;">Create, manage, and track standing payment
+              mandates between customers and billers — with full lifecycle governance and revocation controls.</div>
+          </div>
+          <div style="background: #fff; border: 1px solid #dde8f4; border-radius: 8px; padding: 16px;">
+            <div style="font-size: 13px; font-weight: 700; color: #003366; margin-bottom: 5px;">Request for Payment (RfP)</div>
+            <div style="font-size: 12px; color: #4a6280; line-height: 1.55;">Structured RfP workflows allowing billers
+              to initiate payment requests directly to customers through the bank's channels — trackable, time-bound,
+              and auditable.</div>
+          </div>
+          <div style="background: #fff; border: 1px solid #dde8f4; border-radius: 8px; padding: 16px;">
+            <div style="font-size: 13px; font-weight: 700; color: #003366; margin-bottom: 5px;">Invoice Generation</div>
+            <div style="font-size: 12px; color: #4a6280; line-height: 1.55;">Automated invoice creation from biller
+              data, configurable templates, and delivery across digital channels — reducing manual biller effort and
+              errors at source.</div>
+          </div>
+          <div style="background: #fff; border: 1px solid #dde8f4; border-radius: 8px; padding: 16px;">
+            <div style="font-size: 13px; font-weight: 700; color: #003366; margin-bottom: 5px;">Invoice Lifecycle Management</div>
+            <div style="font-size: 12px; color: #4a6280; line-height: 1.55;">End-to-end tracking of every invoice from
+              issuance through payment or dispute — with status visibility for billers, customers, and the bank at every stage.</div>
+          </div>
+          <div style="background: #fff; border: 1px solid #dde8f4; border-radius: 8px; padding: 16px;">
+            <div style="font-size: 13px; font-weight: 700; color: #003366; margin-bottom: 5px;">Automated Reconciliation</div>
+            <div style="font-size: 12px; color: #4a6280; line-height: 1.55;">Automated matching of payments against
+              invoices and mandates — eliminating manual reconciliation effort for billers and reducing unmatched
+              payment exceptions for the bank.</div>
+          </div>
+          <div style="background: #fff; border: 1px solid #dde8f4; border-radius: 8px; padding: 16px;">
+            <div style="font-size: 13px; font-weight: 700; color: #003366; margin-bottom: 5px;">Multi-Rail Payment Support &amp; Remittances</div>
+            <div style="font-size: 12px; color: #4a6280; line-height: 1.55;">Bill payment processing across ACH,
+              Interac, RTR, and card rails — with consistent biller registry and mandate data applied across all
+              channels. Biller remittances delivered in ISO 20022, with support for other EDI formats where required.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HIGHLIGHTED CANADA CALLOUT BOX -->
+      <div class="canada-note">
+        <div class="cn-icon">🍁</div>
+        <div class="cn-text">
+          <h3>Canada is not a new market for RS Software</h3>
+          <p>
+            RS Software co-architected Canada's Real-Time Rail Exchange. We have deep, working knowledge of Payments
+            Canada rules, Payments Canada regulatory expectations, and FCAC compliance obligations. We're not learning
+            your environment — we helped build part of it.
+          </p>
+          
+          <table border="0" cellspacing="0" cellpadding="0" style="margin-top: 15px;">
+            <tr>
+              <td align="center" bgcolor="#E63946" style="border-radius: 4px;">
+                <a href="mailto:rsmarketing@rssoftware.com?subject=Inquiry%20regarding%20RS%20Bill%40Edge%E2%84%A2%20Free%2060%20Days%20Pilot&body=Hello%20RS%20Software%20team,%0A%0AI%20am%20interested%20in%20learning%20more%20about%20the%20RS%20Bill%40Edge%E2%84%A2%20Free%2060%20Days%20Pilot.%20Please%20provide%20more%20details.%0A%0AThank%20you." 
+                   target="_blank" 
+                   style="font-size: 14px; font-family: Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 4px; padding: 12px 24px; border: 1px solid #E63946; display: inline-block; font-weight: bold;">
+                   Request a Call
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">RS Bill<span>@Edge</span>™ <small>A product of RS Software Inc.</small></div>
+      <div class="footer-links">
+        <a href="https://www.rssoftware.com" target="_blank">rssoftware.com</a>
+        <a href="mailto:intelliedge@rssoftware.com">Contact Us</a>
+        <a href="#poc">Request POC</a>
+      </div>
+    </div>
+    <p class="footer-copy">© 2025 RS Software Inc. All rights reserved. RS Bill@Edge™ is a trademark of RS Software Inc.
+      References to Payments Canada Guideline H6 and FCAC are for informational purposes. Consult your compliance and
+      legal teams for institution-specific obligations.</p>
+  </footer>
+
+
+  
+  
+
+</body>
+</html>
